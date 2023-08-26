@@ -1,0 +1,23 @@
+name: QA
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Pull crazybolillo/phpint
+        run: docker pull crazybolillo/phpint
+      - name: Run Pint  # unknown, but fails on GH Actions as a pre-commit hook, therefore it runs separately
+        run: docker run --rm -v $PWD:/src:rw,Z --workdir /src crazybolillo/phpint --test
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - uses: pre-commit/action@v3.0.0
+        env:
+          SKIP: phpint
