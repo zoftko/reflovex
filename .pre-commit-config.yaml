@@ -13,7 +13,18 @@ repos:
     hooks:
       - id: prettier
         types_or: [ html, css, javascript ]
-  - repo: https://github.com/crazybolillo/phpint
-    rev: v1.0.0
+  - repo: local
     hooks:
-      - id: phpint
+      - id: phpstan
+        name: phpstan
+        entry: composer phpstan
+        language: system
+        require_serial: true
+        files: '(^app/)|(^tests/)'
+        types: ["php"]
+      - id: pint
+        name: pint
+        entry: composer pint
+        language: system
+        require_serial: true
+        types: [php]
