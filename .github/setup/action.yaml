@@ -1,0 +1,29 @@
+name: Setup Laravel
+description: 'Setup a Laravel project with all its dependencies'
+inputs:
+  tools:
+    description: 'PHP tools to be installed'
+    default: composer
+  php:
+    description: 'PHP version to be used'
+    default: '8.2'
+  cache-key:
+    description: 'Key to be used when caching dependencies'
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php }}
+        tools: ${{ inputs.tools }}
+    - id: composer-cache
+      run: |
+        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      shell: bash
+    - uses: actions/cache@v3
+      with:
+        key: ${{ inputs.cache-key }}
+        path: ${{ steps.composer-cache.outputs.dir }}
+    - run: composer install --no-interaction
+      shell: bash

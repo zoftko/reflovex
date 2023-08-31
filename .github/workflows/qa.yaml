@@ -5,31 +5,27 @@ on:
       - main
   pull_request:
     branches:
-      - "*"
+      - '*'
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Pull crazybolillo/phpint
-        run: docker pull crazybolillo/phpint
-      - name: Run Pint  # unknown, but fails on GH Actions as a pre-commit hook, therefore it runs separately
-        run: docker run --rm -v $PWD:/src:rw,Z --workdir /src crazybolillo/phpint --test
+      - name: Setup
+        uses: ./.github/setup
+        with:
+          cache-key: qa-pre-commit
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
       - uses: pre-commit/action@v3.0.0
-        env:
-          SKIP: phpint
   tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@v2
+      - name: Setup
+        uses: ./.github/setup
         with:
-          php-version: '8.2'
-          tools: composer
-      - name: Install project dependencies
-        run: composer install
+          cache-key: qa-pre-commit
       - name: Run tests
         run: php artisan test
