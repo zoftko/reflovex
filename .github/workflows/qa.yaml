@@ -21,11 +21,45 @@ jobs:
       - uses: pre-commit/action@v3.0.0
   tests:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: root
+          POSTGRES_DB: laravel
+          POSTGRES_PASSWORD: reflovex
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
       - name: Setup
         uses: ./.github/setup
         with:
           cache-key: qa-tests
+      - name: Set env.testing
+        run: |
+          cp .env.example .env.testing
+          sed -i 's/\(DB_CONNECTION=\).*/\1pgsql/' .env.testing
+          sed -i 's/\(DB_PORT=\).*/\15432/' .env.testing
+          sed -i '/DB_PASSWORD=/ s/$/reflovex/' .env.testing
+          php artisan key:generate --env=testing
+          cat .env.testing
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: Install npm dependencies
+        run: |
+          npm install
+          npm run build
+      - name: Run migrations
+        run: |
+          php artisan migrate --env=testing
       - name: Run tests
         run: php artisan test
