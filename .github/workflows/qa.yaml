@@ -26,6 +26,6 @@ jobs:
       - name: Setup
         uses: ./.github/setup
         with:
-          cache-key: qa-pre-commit
+          cache-key: qa-tests
       - name: Run tests
         run: php artisan test
