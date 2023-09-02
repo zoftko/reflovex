@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                pld_light: "#fcd8ff",
+            },
         },
     },
 
