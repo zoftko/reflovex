@@ -38,6 +38,10 @@
             <main>
                 {{ $slot }}
             </main>
+
+            {{-- Preloader --}}
+            <x-preloader></x-preloader>
         </div>
+    </div>
     </body>
 </html>
