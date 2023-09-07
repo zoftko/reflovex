@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     use HasFactory;
+
+    //Relation to measurements for session
+    public function measurements(){
+        return $this->hasMany(Measurement::class);
+    }
 }
