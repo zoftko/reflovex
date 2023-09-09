@@ -15,7 +15,8 @@ class SessionService
     }
 
     //Method to retrieve sessions count
-    public function sessionsCount(){
+    public function sessionsCount()
+    {
         return Session::count();
     }
 }
