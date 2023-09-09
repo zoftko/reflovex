@@ -13,4 +13,9 @@ class SessionService
             ->with('measurements')
             ->first();
     }
+
+    //Method to retrieve sessions count
+    public function sessionsCount(){
+        return Session::count();
+    }
 }
