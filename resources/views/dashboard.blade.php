@@ -15,21 +15,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
             <div class="grid md:grid-cols-3 gap-4 sm:rounded-lg">
                 {{-- Boards --}}
-                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#210983] to-[#A1B6E5] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center max-md:flex-row-reverse">
+                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#210983] to-[#A1B6E5] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center max-md:flex-row-reverse boxLightHover">
                     <div class="min-w-[100px]">
                         <img src="{{asset('img/board.png')}}" class="my-0 h-[70px] inline-flex md:block md:h-auto md:mx-auto md:w-[180px] md:mt-12 ">
                     </div>
                     <p class="text-2xl font bold text-[28px] text-white">Boards</p>
                     <p class="text-[28px] text-white max-md:absolute max-md:ml-8 left-0 max-md:text-[42px]">5</p>
                 </div>
-                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#ffc165] to-[#1c1b67] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center">
+                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#ffc165] to-[#1c1b67] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center boxLightHover">
                     <div class="min-w-[100px]">
                         <img  src="{{asset('img/reflovex.png')}}" class="h-[90px] md:h-auto ml-2 block md:mx-auto md:w-[130px] md:mt-2 "/>
                     </div>
                     <p class="text-2xl font bold text-[28px] text-white">Sessions</p>
                     <p class="text-[28px] text-white max-md:absolute max-md:mr-8 right-0 max-md:text-[42px]">5</p>
                 </div>
-                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#7a12eb] to-[#d577ca] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center max-md:flex-row-reverse">
+                <div class="bg-white dark:bg-gray-800 h-[100px] md:h-auto rounded-md text-center bg-gradient-to-r from-[#7a12eb] to-[#d577ca] transition-all duration-150 transform hover:scale-105 cursor-pointer flex md:block items-center max-md:flex-row-reverse boxLightHover">
                     <div class="min-w-[100px]">
                         <img src="{{asset('img/termometer.png')}}" class="ml-2 h-[75px] md:h-auto block md:mx-auto md:w-[130px] md:mt-8 md:mb-4 ">
                     </div>
@@ -40,8 +40,8 @@
         </div>
 
         {{-- Last session hart --}}
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg bg-[#01273e]">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 shadow">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] boxLightHover shadow">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @notEmpty($session)
                     {{ __("Last Session on :date", ['date' => date_format(date_create($session->date), 'Y-m-d')]) }}
