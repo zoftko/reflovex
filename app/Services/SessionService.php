@@ -14,8 +14,10 @@ class SessionService
             ->first();
     }
 
-    //Method to retrieve sessions count
-    public function sessionsCount()
+    /**
+     * Retrieve the amount of sessions stored in the database.
+     */
+    public function sessionsCount(): int
     {
         return Session::count();
     }

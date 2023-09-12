@@ -6,6 +6,7 @@ use App\Services\BoardService;
 use App\Services\ProfileService;
 use App\Services\SessionService;
 use Carbon\CarbonInterval;
+use Illuminate\Contracts\View\View;
 
 class Dashboard extends Controller
 {
@@ -22,12 +23,10 @@ class Dashboard extends Controller
         $this->profileService = new ProfileService();
     }
 
-    //Method to show dashboard and send necessary information
-    public function dashboard()
+    public function dashboard(): View
     {
         $session = $this->sessionService->lastSession();
 
-        //Extract data for X and Y Axis
         if (! empty($session)) {
             $xAxis = $session->measurements->map(function ($measurement) {
                 return $measurement->sequence;
@@ -36,7 +35,8 @@ class Dashboard extends Controller
                 return $measurement->temperature;
             });
         }
-        //Calculate session time
+        $xAxis = $xAxis ?? [];
+        $yAxis = $yAxis ?? [];
 
         return view('dashboard', [
             'session' => $session,

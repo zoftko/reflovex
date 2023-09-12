@@ -53,6 +53,7 @@
                 <div id="chart" class="h-3/4 mx-3"></div>
                 @endnotEmpty
             </div>
+            @notEmpty($session)
             <script type="module">
                 //Check dark mode
                 let yColor, titleColor
@@ -156,6 +157,7 @@
                     chart.updateOptions(opt, false, false)
                 })
             </script>
+            @endnotEmpty
         </div>
     </div>
 </x-app-layout>
