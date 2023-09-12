@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('boards')">
+                        {{ __('Boards') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('profiles')">
+                        {{ __('Profiles') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('sessions')">
+                        {{ __('Sessions') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -56,7 +65,7 @@
                 <button type="button" x-bind:class="darkMode ? 'bg-indigo-500' : 'bg-gray-200'"
                         x-on:click="darkMode = !darkMode"
                         class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        role="switch" aria-checked="false">
+                        role="switch" aria-checked="false" id="switchLight">
                     <span class="sr-only">Dark mode toggle</span>
                     <span x-bind:class="darkMode ? 'translate-x-5 bg-gray-700' : 'translate-x-0 bg-white'"
                           class="pointer-events-none relative inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200 ease-in-out">
