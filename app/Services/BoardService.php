@@ -11,4 +11,11 @@ class BoardService
     {
         return Board::count();
     }
+
+    /*
+     * Retrieve board by UUID
+     */
+    public function boardByUUID(string $uuid):Board|null{
+        return Board::where('uuid', $uuid)->first();
+    }
 }

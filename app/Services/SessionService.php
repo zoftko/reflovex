@@ -21,4 +21,11 @@ class SessionService
     {
         return Session::count();
     }
+
+    /**
+     * Method to create a new session with array data
+     */
+    public function createSession(array $data): Session{
+        return Session::create($data);
+    }
 }
