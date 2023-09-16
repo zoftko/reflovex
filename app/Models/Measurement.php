@@ -32,4 +32,10 @@ use Illuminate\Support\Carbon;
 class Measurement extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'session_id',
+        'temperature',
+        'sequence',
+    ];
 }

@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Health;
-use App\Http\Controllers\Api\Session;
+use App\Http\Controllers\Api\Measurement;
+use App\Http\Controllers\Api\SessionController;
 use App\Http\Middleware\AuthenticateBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::name('api.')->middleware(AuthenticateBoard::class)->group(function () {
     Route::apiResource('health', Health::class);
-    Route::apiResource('session', Session::class);
+    Route::apiResource('session', SessionController::class);
+    Route::apiResource('measurement', Measurement::class);
 });
