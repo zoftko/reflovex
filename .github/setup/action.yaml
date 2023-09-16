@@ -17,6 +17,7 @@ runs:
       with:
         php-version: ${{ inputs.php }}
         tools: ${{ inputs.tools }}
+        coverage: xdebug
     - id: composer-cache
       run: |
         echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
