@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Feature\Auth;
 
 use App\Models\Board;
 use Tests\TestCase;
 
 class AuthenticateBoardTest extends TestCase
 {
-    public function testValidCredentials(): void
+    public function test_valid_credentials(): void
     {
         $uuid = Board::factory()->create()->uuid;
         $response = $this->getJson(
@@ -18,25 +18,25 @@ class AuthenticateBoardTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCredentialsMissingUser(): void
+    public function test_credentials_missing_user(): void
     {
         $response = $this->getJson(route('api.health.index'), headers: ['Authorization' => 'Basic :myuuid']);
         $this->assertEquals(401, $response->status());
     }
 
-    public function testCredentialsMissingPassword(): void
+    public function test_credentials_missing_password(): void
     {
         $response = $this->getJson(route('api.health.index'), headers: ['Authorization' => 'Basic myuuid:']);
         $this->assertEquals(401, $response->status());
     }
 
-    public function testCredentialsMalformed(): void
+    public function test_credentials_malformed(): void
     {
         $response = $this->getJson(route('api.health.index'), headers: ['Authorization' => 'Basic randomcrap']);
         $this->assertEquals(401, $response->status());
     }
 
-    public function testCredentialsMissingScheme(): void
+    public function test_credentials_missing_scheme(): void
     {
         $response = $this->getJson(route('api.health.index'), headers: ['Authorization' => 'Hello world']);
         $this->assertEquals(401, $response->status());

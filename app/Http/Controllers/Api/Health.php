@@ -11,7 +11,7 @@ class Health extends Controller
     public function index(Request $request): JsonResponse
     {
         return response()->json([
-            'status' => 200,
+            'status' => 'ok',
         ]);
     }
 }
