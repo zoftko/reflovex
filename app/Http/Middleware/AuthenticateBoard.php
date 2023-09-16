@@ -40,6 +40,8 @@ class AuthenticateBoard
             throw new AuthenticationException();
         }
 
+        $request->merge(['board' => $board]);
+
         return $next($request);
     }
 }
