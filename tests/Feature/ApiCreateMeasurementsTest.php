@@ -18,7 +18,6 @@ class ApiCreateMeasurementsTest extends TestCase
         $this->board = Board::factory()->create();
         $this->session = Session::create([
             'board_id' => $this->board->id,
-            'date' => now(),
             'soak_temperature' => 100,
             'soak_time' => 70,
             'reflow_gradient' => 2,

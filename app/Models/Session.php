@@ -15,7 +15,6 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $board_id
- * @property string $date
  * @property int $soak_temperature
  * @property int $soak_time
  * @property int $reflow_gradient
@@ -59,7 +58,6 @@ class Session extends Model
         'reflow_peak_temp',
         'ramp_up_gradient',
         'cooldown_gradient',
-        'date',
     ];
 
     /**
