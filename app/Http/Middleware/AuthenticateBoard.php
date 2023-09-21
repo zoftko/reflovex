@@ -39,8 +39,7 @@ class AuthenticateBoard
         if (! $board) {
             throw new AuthenticationException();
         }
-
-        $request->merge(['board' => $board]);
+        app()->instance(Board::class, $board);
 
         return $next($request);
     }
