@@ -8,6 +8,7 @@ class MeasurementService
 {
     /*
      * Method to insert a chunk of measurements
+     * @return array<string, int>
      */
     public function createMeasurements(array $measurements): array
     {

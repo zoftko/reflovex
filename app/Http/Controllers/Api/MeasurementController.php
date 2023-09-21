@@ -7,7 +7,7 @@ use App\Services\MeasurementService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class Measurement extends Controller
+class MeasurementController extends Controller
 {
     private MeasurementService $measurementService;
 
