@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Session
+ * App\Models\SessionController
  *
  * @property int $id
  * @property int $board_id
- * @property string $date
  * @property int $soak_temperature
  * @property int $soak_time
  * @property int $reflow_gradient
@@ -48,6 +48,25 @@ use Illuminate\Support\Carbon;
 class Session extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'board_id',
+        'soak_temperature',
+        'soak_time',
+        'reflow_gradient',
+        'reflow_max_time',
+        'reflow_peak_temp',
+        'ramp_up_gradient',
+        'cooldown_gradient',
+    ];
+
+    /**
+     * @return HasOne<Board>
+     */
+    public function board(): HasOne
+    {
+        return $this->hasOne(Board::class);
+    }
 
     /**
      * Obtain all measurements related to this session.
