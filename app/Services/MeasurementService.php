@@ -6,11 +6,12 @@ use App\Models\Measurement;
 
 class MeasurementService
 {
-    /*
+    /**
      * Method to insert a chunk of measurements
-     * @return array<string, int>
+     *
+     * @return array<string, int|null>
      */
-    public function createMeasurements(array $measurements): array
+    public function createMeasurements(array $measurements): array // @phpstan-ignore-line
     {
         $rows = 0;
         $last_sequence = null;
