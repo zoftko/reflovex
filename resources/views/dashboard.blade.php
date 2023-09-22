@@ -44,7 +44,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] boxLightHover shadow">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @notEmpty($session)
-                    {{ __("Last Session on :date", ['date' => date_format(date_create($session->created_date), 'Y-m-d')]) }}
+                    {{ __("Last Session on :date", ['date' => date_format(date_create($session->created_at), 'Y-m-d')]) }}
                     @else
                     {{ __("No last session registered") }}
                     @endnotEmpty
@@ -69,7 +69,7 @@
                 let options = {
                     series: [{
                         name: '°C',
-                        data: {{$yAxis}},
+                        data: @json($yAxis),
                     }],
                     chart: {
                         height: 350,
@@ -99,7 +99,7 @@
                     },
                     xaxis: {
                         type: 'numeric',
-                        categories: {{$xAxis}},
+                        categories: @json($xAxis),
                         tickAmount: 10,
                     },
                     title: {
