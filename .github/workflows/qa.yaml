@@ -60,7 +60,7 @@ jobs:
           npm run build
       - name: Run migrations
         run: |
-          php artisan migrate --env=testing
+          php artisan migrate --seed --env=testing
       - name: Run tests
         run: php artisan test --coverage
       - uses: codecov/codecov-action@v3
