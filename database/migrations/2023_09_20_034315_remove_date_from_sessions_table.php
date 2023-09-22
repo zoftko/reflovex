@@ -15,14 +15,4 @@ return new class extends Migration
             $table->dropColumn('date');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('sessions', function (Blueprint $table) {
-            $table->datetime('date');
-        });
-    }
 };

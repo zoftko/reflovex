@@ -33,7 +33,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Session whereBoardId($value)
  * @method static Builder|Session whereCooldownGradient($value)
  * @method static Builder|Session whereCreatedAt($value)
- * @method static Builder|Session whereDate($value)
  * @method static Builder|Session whereId($value)
  * @method static Builder|Session whereRampUpGradient($value)
  * @method static Builder|Session whereReflowGradient($value)

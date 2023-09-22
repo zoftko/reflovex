@@ -15,21 +15,6 @@ class BoardSeeder extends Seeder
      */
     public function run(): void
     {
-        Board::create([
-            'uuid' => 'FCDR567NAK7U',
-            'name' => 'Main classroom',
-            'ip' => '192.168.2.56',
-            'last_seen' => now(),
-        ]);
-        Board::create([
-            'uuid' => 'FXXGFSK8HG35',
-            'name' => 'Telecomunications room',
-            'ip' => '192.168.2.67',
-            'last_seen' => now(),
-        ]);
-        Board::create([
-            'uuid' => 'FCDR567NAK7U',
-            'name' => 'Main classroom',
-        ]);
+        Board::factory()->create(['name' => 'Laboratory', 'uuid' => '28CDC109EAEC']);
     }
 }

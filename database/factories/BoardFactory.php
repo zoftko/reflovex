@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Board;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Board>
+ * @extends Factory<Board>
  */
 class BoardFactory extends Factory
 {
@@ -17,8 +18,10 @@ class BoardFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->streetName(),
+            'name' => fake()->unique()->regexify('Room [A-Z][0-9]'),
             'uuid' => fake()->regexify('[A-Z0-9]{12}'),
+            'ip' => fake()->ipv4(),
+            'last_seen' => fake()->dateTimeBetween(startDate: '-30 days'),
         ];
     }
 }
