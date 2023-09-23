@@ -3,6 +3,24 @@
         .apexcharts-canvas{
             margin: auto;
         }
+        .boardBox{
+            position: relative;
+        }
+
+        .boardBox::before{
+            content: "";
+            background-image: url({{asset('img/circuit.png')}});
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0.1;
+
+        }
+
     </style>
 
     <div class="py-12">
@@ -30,6 +48,65 @@
                     </div>
                     <p class="text-2xl font bold text-[28px] text-white">Profiles</p>
                     <p class="text-[28px] text-white max-md:absolute max-md:ml-8 left-0 max-md:text-[42px]">{{$profilesCount}}</p>
+                </div>
+            </div>
+        </div>
+
+        {{-- Boards and and current active session --}}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
+            <div class="grid md:grid-cols-2 gap-4 sm:rounded-lg">
+                {{-- Boards --}}
+                <div class="grid grid-cols-2 gap-2 sm:rounded-lg">
+                    @for($i=0; $i<3; $i++)
+                    <div class="
+                         min-h-[100px]
+                         bg-center
+                         bg-cover
+                         bg-no-repeat
+                         rounded-lg p-2
+                         shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
+                         text-white
+                         boardBox
+                         transition-all duration-150 transform hover:scale-105 cursor-pointer
+                         "
+                    >
+                            <header class="grid grid-cols-6 items-center">
+                                <p class="col-span-4 text-white text-xl">Board name</p>
+                                <div class="col-span-2 flex justify-end align-middle text-white">
+                                    <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-green-600">Active</span>
+                                </div>
+                            </header>
+                            <hr class="mt-2">
+                            <p class="mt-3 text-sm">MAC: FF4523BA0990</p>
+                            <p class="mb-2 text-sm">IP: 192.168.0.1</p>
+                    </div>
+                    @endfor
+                        <div class="
+                         min-h-[100px]
+                         bg-center
+                         bg-cover
+                         bg-no-repeat
+                         rounded-lg p-2
+                         shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
+                         text-white
+                         boardBox
+                         transition-all duration-150 transform hover:scale-105 cursor-pointer
+                         "
+                        >
+                            <header class="grid grid-cols-6 items-center">
+                                <p class="col-span-4 text-white text-xl">Board name</p>
+                                <div class="col-span-2 flex justify-end align-middle text-white">
+                                    <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-red-500">Inactive</span>
+                                </div>
+                            </header>
+                            <hr class="mt-2">
+                            <p class="mt-3 text-sm">MAC: FF4523BA0990</p>
+                            <p class="mb-2 text-sm">Last seen: 16/09/2023 5:00pm</p>
+                        </div>
+                </div>
+                {{-- Current session --}}
+                <div>
+
                 </div>
             </div>
         </div>
