@@ -6,6 +6,9 @@
         .boardBox{
             position: relative;
         }
+        .boardBox:not(.dark .boardBox){
+            box-shadow: 1px 1px 5px 1px rgba(73, 72, 83, 0.5);
+        }
 
         .boardBox::before{
             content: "";
@@ -17,10 +20,12 @@
             right: 0;
             bottom: 0;
             left: 0;
-            opacity: 0.1;
-
+            opacity: 0.3;
         }
 
+        .lightBox:not(.dark .lightBox){
+            box-shadow: 1px 1px 5px 1px rgba(73, 72, 83, 0.5);
+        }
     </style>
 
     <div class="py-12">
@@ -56,7 +61,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
             <div class="grid md:grid-cols-2 gap-4 sm:rounded-lg">
                 {{-- Boards --}}
-                <div class="grid grid-cols-2 gap-2 sm:rounded-lg">
+                <div class="grid grid-cols-2 gap-4 sm:rounded-lg">
                     @for($i=0; $i<3; $i++)
                     <div class="
                          min-h-[100px]
@@ -65,13 +70,14 @@
                          bg-no-repeat
                          rounded-lg p-2
                          shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
-                         text-white
+                         dark:text-white
                          boardBox
                          transition-all duration-150 transform hover:scale-105 cursor-pointer
+                         dark:bg-gray-800
                          "
                     >
                             <header class="grid grid-cols-6 items-center">
-                                <p class="col-span-4 text-white text-xl">Board name</p>
+                                <p class="col-span-4 text-xl">Board name</p>
                                 <div class="col-span-2 flex justify-end align-middle text-white">
                                     <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-green-600">Active</span>
                                 </div>
@@ -88,13 +94,14 @@
                          bg-no-repeat
                          rounded-lg p-2
                          shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
-                         text-white
+                         dark:text-white
                          boardBox
                          transition-all duration-150 transform hover:scale-105 cursor-pointer
+                         dark:bg-gray-800
                          "
                         >
                             <header class="grid grid-cols-6 items-center">
-                                <p class="col-span-4 text-white text-xl">Board name</p>
+                                <p class="col-span-4 text-xl">Board name</p>
                                 <div class="col-span-2 flex justify-end align-middle text-white">
                                     <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-red-500">Inactive</span>
                                 </div>
@@ -105,15 +112,23 @@
                         </div>
                 </div>
                 {{-- Current session --}}
-                <div>
-
+                <div class="dark:text-white text-center rounded-lg
+                         dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] pt-8 pb-4
+                         transition-all duration-150 transform hover:scale-105 cursor-pointer
+                         dark:bg-gray-800
+                         lightBox
+                         "
+                >
+                    <object class="mx-auto h-[150px]" data="{{asset('img/circuit_package_white.svg')}}" width="80%"></object>
+                    <p class="w-full mt-2 text-xl">Nos active sessions</p>
+                    <p>When a session starts here will be shown</p>
                 </div>
             </div>
         </div>
 
         {{-- Last session hart --}}
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 shadow">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] boxLightHover shadow">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] lightBox shadow transition-all duration-150 transform hover:scale-[1.01] cursor-pointer dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @notEmpty($session)
                     {{ __("Last Session on :date", ['date' => date_format(date_create($session->created_at), 'Y-m-d')]) }}
