@@ -25,7 +25,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Measurement> $measurements
- * @property-read int|null $measurements_count
  *
  * @method static Builder|Session newModelQuery()
  * @method static Builder|Session newQuery()
