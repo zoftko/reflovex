@@ -83,6 +83,68 @@ class ApiCreateMeasurementsTest extends TestCase
             ],
         ], ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
+    }
+
+    public function test_measurements_create_no_session(): void
+    {
+        $newBoard = Board::factory()->create();
+        $response = $this->postJson(route('api.measurement.store'), [
+            'measurements' => [
+                [
+                    'temp' => 30.5,
+                    'sequence' => 1,
+                ],
+                [
+                    'temp' => 32.75,
+                    'sequence' => 2,
+                ],
+            ],
+        ], ['Authorization' => "Basic {$newBoard->uuid}:{$newBoard->uuid}"]);
+
+        $response->assertStatus(400);
+    }
+
+    public function test_measurements_create_without_session(): void
+    {
+        $response = $this->postJson(route('api.measurement.store'), [
+            'measurements' => [
+                [
+                    'temp' => 30.5,
+                    'sequence' => 1,
+                ],
+                [
+                    'temp' => 32.75,
+                    'sequence' => 2,
+                ],
+            ],
+        ], ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]);
+        $response->assertStatus(201);
+        self::assertEquals(2, $this->session->measurements()->count());
+
+        $response = $this->postJson(route('api.measurement.store'), [
+            'measurements' => [
+                [
+                    'temp' => 35,
+                    'sequence' => 3,
+                ],
+            ],
+        ], ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]);
+        $response->assertStatus(201);
+        self::assertEquals(3, $this->session->measurements()->count());
+
+        $newSession = Session::factory()->create(['board_id' => $this->board->id]);
+        $response = $this->postJson(route('api.measurement.store'), [
+            'measurements' => [
+                [
+                    'temp' => 35,
+                    'sequence' => 1,
+                ],
+            ],
+        ], ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]);
+
+        $response->assertStatus(201);
+        self::assertEquals(3, $this->session->measurements()->count());
+        self:self::assertEquals(1, $newSession->measurements()->count());
     }
 }
