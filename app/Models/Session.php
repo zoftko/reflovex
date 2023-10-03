@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\SessionController
+ * App\Models\Session
  *
  * @property int $id
  * @property int $board_id
