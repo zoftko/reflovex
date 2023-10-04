@@ -34,8 +34,8 @@ class AuthenticateBoard
             throw new AuthenticationException();
         }
 
-        $uuid = $credentials[0];
-        $board = Board::where('uuid', $uuid)->first();
+        $uuid = strtoupper($credentials[0]);
+        $board = Board::whereUuid($uuid)->first();
         if (! $board) {
             throw new AuthenticationException();
         }

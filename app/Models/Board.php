@@ -36,4 +36,9 @@ use Illuminate\Support\Carbon;
 class Board extends Model
 {
     use HasFactory;
+
+    public function setUuidAttribute(string $value): void
+    {
+        $this->attributes['uuid'] = strtoupper($value);
+    }
 }
