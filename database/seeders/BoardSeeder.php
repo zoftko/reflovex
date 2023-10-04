@@ -16,5 +16,6 @@ class BoardSeeder extends Seeder
     public function run(): void
     {
         Board::factory()->create(['name' => 'Laboratory', 'uuid' => '28CDC109EAEC']);
+        Board::factory()->create(['name' => 'Backup Room', 'uuid' => '28CDC104365B']);
     }
 }
