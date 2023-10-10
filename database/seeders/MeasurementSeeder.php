@@ -11,6 +11,11 @@ class MeasurementSeeder extends Seeder
 {
     use WithoutModelEvents;
 
+    private function randomFloat(float $min, float $max)
+    {
+        return rand($min * 100, $max * 100) / 100;
+    }
+
     /**
      * Run the database seeds.
      */
@@ -27,7 +32,7 @@ class MeasurementSeeder extends Seeder
                     'temperature' => $temp,
                     'sequence' => $sequence++,
                 ]);
-                $temp += $session->ramp_up_gradient;
+                $temp += $this->randomFloat(0.5, 2.5);
             }
 
             //Now we make soak time
@@ -47,7 +52,7 @@ class MeasurementSeeder extends Seeder
                     'temperature' => $temp,
                     'sequence' => ++$sequence,
                 ]);
-                $temp += $session->reflow_gradient;
+                $temp += $this->randomFloat(1, 2.5);
             }
 
             //Cool down ramp
@@ -57,7 +62,7 @@ class MeasurementSeeder extends Seeder
                     'temperature' => $temp,
                     'sequence' => ++$sequence,
                 ]);
-                $temp -= $session->cooldown_gradient;
+                $temp -= $this->randomFloat(2, 4);
             }
         }
     }

@@ -17,11 +17,8 @@ use Illuminate\Support\Carbon;
  * @property int $board_id
  * @property int $soak_temperature
  * @property int $soak_time
- * @property int $reflow_gradient
- * @property int $ramp_up_gradient
  * @property int $reflow_peak_temp
  * @property int $reflow_max_time
- * @property int $cooldown_gradient
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Measurement> $measurements
@@ -30,11 +27,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Session newQuery()
  * @method static Builder|Session query()
  * @method static Builder|Session whereBoardId($value)
- * @method static Builder|Session whereCooldownGradient($value)
  * @method static Builder|Session whereCreatedAt($value)
  * @method static Builder|Session whereId($value)
- * @method static Builder|Session whereRampUpGradient($value)
- * @method static Builder|Session whereReflowGradient($value)
  * @method static Builder|Session whereReflowMaxTime($value)
  * @method static Builder|Session whereReflowPeakTemp($value)
  * @method static Builder|Session whereSoakTemperature($value)
@@ -51,11 +45,17 @@ class Session extends Model
         'board_id',
         'soak_temperature',
         'soak_time',
-        'reflow_gradient',
         'reflow_max_time',
         'reflow_peak_temp',
-        'ramp_up_gradient',
-        'cooldown_gradient',
+    ];
+
+    /**
+     * Model's default values.
+     *
+     * @var int[]
+     */
+    protected $attributes = [
+        'reflow_max_time' => 90,
     ];
 
     /**

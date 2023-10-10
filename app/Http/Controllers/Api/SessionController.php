@@ -15,10 +15,7 @@ class SessionController extends Controller
         $validInput = $request->validate([
             'soak_temperature' => 'required|numeric',
             'soak_time' => 'required|numeric',
-            'reflow_gradient' => 'required|numeric',
-            'ramp_up_gradient' => 'required|numeric',
-            'reflow_max_time' => 'required|numeric',
-            'cooldown_gradient' => 'required|numeric',
+            'reflow_max_time' => 'nullable|numeric|gt:0',
             'reflow_peak_temp' => 'required|numeric',
         ]);
         $validInput['board_id'] = $requestBoard->id;

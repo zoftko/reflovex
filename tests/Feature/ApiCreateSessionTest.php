@@ -30,10 +30,7 @@ class ApiCreateSessionTest extends TestCase
         $response = $this->postJson(route('api.session.store'), [
             'soak_temperature' => '10',
             'soak_time' => 1,
-            'reflow_gradient' => 4,
-            'ramp_up_gradient' => true,
-            'reflow_max_time' => 5,
-            'cooldown_gradient' => -6,
+            'reflow_max_time' => -5,
             'reflow_peak_temp' => '6',
         ], ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]);
 
@@ -47,15 +44,28 @@ class ApiCreateSessionTest extends TestCase
             [
                 'soak_time' => 70,
                 'soak_temperature' => 100,
-                'reflow_gradient' => 2,
                 'reflow_peak_temp' => 183,
                 'reflow_max_time' => 120,
-                'ramp_up_gradient' => 5,
-                'cooldown_gradient' => -6,
             ],
             ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]
         );
 
         $response->assertOk();
+    }
+
+    public function test_create_session_default_values(): void
+    {
+        $response = $this->postJson(
+            route('api.session.store'),
+            [
+                'soak_time' => 70,
+                'soak_temperature' => 100,
+                'reflow_peak_temp' => 183,
+            ],
+            ['Authorization' => "Basic {$this->board->uuid}:{$this->board->uuid}"]
+        );
+
+        $response->assertOk();
+        $response->assertJson(['reflow_max_time' => 90]);
     }
 }
