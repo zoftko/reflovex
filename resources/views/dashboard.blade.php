@@ -50,48 +50,43 @@
             <div class="grid md:grid-cols-2 gap-4 sm:rounded-lg">
                 {{-- Boards --}}
                 <div class="grid sm:grid-cols-2 gap-4 sm:rounded-lg">
-                    @for($i=0; $i<3; $i++)
-                    <div class="
+                    @forelse($recentBoards as $b)
+                        <div class="
+                             min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
+                             shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] dark:text-white boardBox
+                             transition-all duration-150 transform hover:scale-105 cursor-pointer
+                             bg-white dark:bg-gray-800
+                             "
+                        >
+                                <header class="grid grid-cols-6 items-center">
+                                    <p class="col-span-4 text-xl">{{$b['name']}}</p>
+                                    <div class="col-span-2 flex justify-end align-middle text-white">
+                                        <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-green-600">Active</span>
+                                    </div>
+                                </header>
+                                <hr class="mt-2">
+                                <p class="mt-3 text-sm">{{$b['uuid']}}</p>
+                                <p class="mb-2 text-sm">IP: {{$b['ip']}}</p>
+                        </div>
+                    @empty
+                        <div class="
                          min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
                          shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] dark:text-white boardBox
                          transition-all duration-150 transform hover:scale-105 cursor-pointer
                          bg-white dark:bg-gray-800
                          "
-                    >
-                            <header class="grid grid-cols-6 items-center">
-                                <p class="col-span-4 text-xl">Board name</p>
-                                <div class="col-span-2 flex justify-end align-middle text-white">
-                                    <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-green-600">Active</span>
-                                </div>
-                            </header>
-                            <hr class="mt-2">
-                            <p class="mt-3 text-sm">MAC: FF4523BA0990</p>
-                            <p class="mb-2 text-sm">IP: 192.168.0.1</p>
-                    </div>
-                    @endfor
-                        <div class="
-                         min-h-[100px]
-                         bg-center
-                         bg-cover
-                         bg-no-repeat
-                         rounded-lg p-2
-                         shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
-                         dark:text-white
-                         boardBox
-                         transition-all duration-150 transform hover:scale-105 cursor-pointer
-                         bg-white dark:bg-gray-800
-                         "
                         >
                             <header class="grid grid-cols-6 items-center">
-                                <p class="col-span-4 text-xl">Board name</p>
+                                <p class="col-span-4 text-xl">NO BOARDS</p>
                                 <div class="col-span-2 flex justify-end align-middle text-white">
                                     <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-red-500">Inactive</span>
                                 </div>
                             </header>
                             <hr class="mt-2">
-                            <p class="mt-3 text-sm">MAC: FF4523BA0990</p>
-                            <p class="mb-2 text-sm">Last seen: 16/09/2023 5:00pm</p>
+                            <p class="mt-3 text-sm">{{$b->uuid}}</p>
+                            <p class="mb-2 text-sm">IP: {{$b->ip}}</p>
                         </div>
+                    @endforelse
                 </div>
                 {{-- Current session --}}
                 <div class="dark:text-white text-center rounded-lg
