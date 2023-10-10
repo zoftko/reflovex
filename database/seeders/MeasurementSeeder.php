@@ -21,7 +21,7 @@ class MeasurementSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (Session::where('id', '>', '0')->limit(5)->get() as $session) {
+        foreach (Session::get() as $session) {
             $temp = 20;
             $sequence = 1;
 
