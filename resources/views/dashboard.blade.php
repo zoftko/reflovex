@@ -39,17 +39,13 @@
 
     </style>
 
-    <div class="py-12">
-        {{-- Summary boxes --}}
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
-
-        </div>
+    <div class="py-12 mx-4">
 
         {{-- Boards and and current active session --}}
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
-            <div class="grid md:grid-cols-2 gap-4 sm:rounded-lg">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 mb-3">
+            <div class="grid md:grid-cols-2 gap-6 sm:rounded-lg">
                 {{-- Boards --}}
-                <div class="grid sm:grid-cols-2 gap-4 sm:rounded-lg">
+                <div class="grid sm:grid-cols-2 gap-6 sm:rounded-lg">
                     @forelse($recentBoards as $b)
                         <div class="
                              min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
@@ -105,10 +101,10 @@
         </div>
 
         {{-- Last session hart and statistics --}}
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 shadow mt-8">
-            <div class="grid md:grid-cols-2 gap-4">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 shadow mt-8">
+            <div class="grid md:grid-cols-2 gap-6">
                 <div class=" sm:rounded-lg">
-                    <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid md:grid-cols-3 gap-6">
                         {{-- Links --}}
                         <div class="bg-white dark:bg-gray-800 h-[100px] md:h-[150px]
                         rounded-md text-center  transition-all duration-150 transform
@@ -146,8 +142,20 @@
                             <p class="text-[24px] max-md:absolute max-md:ml-8 left-0 max-md:text-[42px]">{{$profilesCount}}</p>
                         </div>
                     </div>
-                    <div class="grid sm:grid-cols-2 gap-4 mt-4">
-                        @for($i=0;$i<6;$i++)
+                    {{-- Statistics --}}
+                    <div class="grid sm:grid-cols-2 gap-6 mt-6">
+                        @forelse($statistics as $title => $data)
+                            <div class="lightBox dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] statsBox
+                                bg-white dark:bg-gray-800
+                                relative min-h-[130px] overflow-hidden
+                                dark:text-white text-center grid
+                                after:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
+                                transition-all duration-150 transform hover:scale-105
+                            ">
+                                <p class="w-100 block mt-[10px]">{{$title}}</p>
+                                <p class="block">{{$data}}</p>
+                            </div>
+                        @empty
                             <div class="lightBox dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] statsBox
                                 bg-white dark:bg-gray-800
                                 relative min-h-[80px] overflow-hidden
@@ -155,10 +163,10 @@
                                 after:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
                                 transition-all duration-150 transform hover:scale-105
                             ">
-                                <p class="w-100 block mt-[10px]">Temperature</p>
-                                <p class="block">36°</p>
+                                <p class="w-100 block mt-[10px]">No statistics</p>
+                                <p class="block">No data</p>
                             </div>
-                        @endfor
+                        @endforelse
                     </div>
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] lightBox shadow transition-all duration-150 transform hover:scale-[1.02] cursor-pointer dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]">
