@@ -29,13 +29,17 @@
         .statsBox::after{
             content: "";
             position:absolute;
-            margin:-40px;
             left: 0;
-            width:80px;
-            height:80px;
-            transform:rotate(45deg);
-            background-color:#871ba9;
+            width:100%;
+            height:3px;
+            /*background-color: #6083f6;*/
         }
+
+        /* Classes from server to render different color on statistics boxes */
+        .afterTodayTemp:after{background-color: #f59905 !important;}
+        .afterMaxTemp:after{background-color: #f50d05 !important;}
+        .afterLongSession:after{background-color: #3af81f !important;}
+        .afterMostSessions:after{background-color: #00a2e6 !important;}
 
     </style>
 
@@ -151,9 +155,11 @@
                                 dark:text-white text-center grid
                                 after:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]
                                 transition-all duration-150 transform hover:scale-105
+                                content-center
+                                {{$data["class"]}}
                             ">
                                 <p class="w-100 block mt-[10px]">{{$title}}</p>
-                                <p class="block">{{$data}}</p>
+                                <p class="block text-xl mt-2">{!! $data["data"] !!}</p>
                             </div>
                         @empty
                             <div class="lightBox dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] statsBox
