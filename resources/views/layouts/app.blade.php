@@ -13,14 +13,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <style>
-            .dark .appHeader{
-                box-shadow: 2px 2px 5px 1px rgba(255, 255, 255, 0.2);
-            }
-            .boxLightHover:hover:not(.dark .boxLightHover){
-                box-shadow: 1px 1px 5px 1px rgba(73, 72, 83, 0.5);
-            }
-        </style>
     </head>
     <body class="font-sans antialiased" x-data="{ darkMode: false }" x-init="
     if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
