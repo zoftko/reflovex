@@ -1,12 +1,9 @@
 <?php
 
 use App\Models\Board;
-use App\Models\Measurement;
 use App\Models\Session;
 use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,26 +23,6 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-function addMeasurement(Collection &$measurements, int $sessionID, float $temp, int $sequence): void
-{
-    $measurements->push([
-        'session_id' => $sessionID,
-        'temperature' => $temp,
-        'sequence' => $sequence,
-    ]);
-}
-
-function saveMeasurements(Collection &$measurements, int $sleepTime, ProgressBar &$progress): void
-{
-    if ($measurements->count() == 10) {
-        $measurements->map(function ($measurement) {
-            Measurement::create($measurement);
-        });
-        $measurements = collect();
-        $progress->advance(10);
-        sleep($sleepTime);
-    }
-}
 /*
  * @var Illuminate\Support\Facades\Artisan $this
  * @var App\Models\Board $board
@@ -73,31 +50,31 @@ Artisan::command('reflow {soakTemperature} {soakTime} {reflowPeakTemp} {sleepTim
     //Make ramp to soak
     $progress->setMessage('Starting raising to soak temperature...');
     while ($temp < $soakTemperature) {
-        addMeasurement($measurements, $session->id, $temp, $sequence++);
-        saveMeasurements($measurements, $sleepTime, $progress);
+        rcAddMeasurement($measurements, $session->id, $temp, $sequence++);
+        rcSaveMeasurements($measurements, $sleepTime, $progress);
         $temp += mt_rand(5, 25) / 10;
     }
 
     //Now we make soak time
     $progress->setMessage('Keep on soak time...');
     for ($seconds = 0; $seconds <= $soakTime; $seconds++, $sequence++) {
-        addMeasurement($measurements, $session->id, $temp, $sequence);
-        saveMeasurements($measurements, $sleepTime, $progress);
+        rcAddMeasurement($measurements, $session->id, $temp, $sequence);
+        rcSaveMeasurements($measurements, $sleepTime, $progress);
     }
 
     // Ramp up gradient to peak
     $progress->setMessage('Ramp up to reflow peak temperature...');
     while ($temp < $reflowPeakTemp) {
-        addMeasurement($measurements, $session->id, $temp, $sequence++);
-        saveMeasurements($measurements, $sleepTime, $progress);
+        rcAddMeasurement($measurements, $session->id, $temp, $sequence++);
+        rcSaveMeasurements($measurements, $sleepTime, $progress);
         $temp += mt_rand(10, 25) / 10;
     }
 
     //Cool down ramp
     $progress->setMessage('Cooling down...');
     while ($temp > 50) {
-        addMeasurement($measurements, $session->id, $temp, $sequence++);
-        saveMeasurements($measurements, $sleepTime, $progress);
+        rcAddMeasurement($measurements, $session->id, $temp, $sequence++);
+        rcSaveMeasurements($measurements, $sleepTime, $progress);
         $temp -= mt_rand(20, 40) / 10;
     }
     $progress->finish();
