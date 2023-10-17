@@ -89,23 +89,12 @@
                     @endforelse
                 </div>
                 {{-- Current session --}}
-                <div class="dark:text-white text-center rounded-lg
-                         dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] pt-8 pb-4
-                         transition-all duration-150 transform hover:scale-[1.02] cursor-pointer
-                         bg-white dark:bg-gray-800
-                         lightBox
-                         "
-                >
-                    <object class="hidden dark:block mx-auto h-[150px]" data="{{asset('img/circuit_package_white.svg')}}" width="80%"></object>
-                    <object class="block dark:hidden mx-auto h-[150px]" data="{{asset('img/circuit_package.svg')}}" width="80%"></object>
-                    <p class="w-full mt-2 text-xl">No active sessions</p>
-                    <p>When a session starts here will be shown</p>
-                </div>
+                @livewire('active-session')
             </div>
         </div>
 
         {{-- Last session hart and statistics --}}
-        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 shadow mt-8">
+        <div class="max-w-8xl mx-auto shadow mt-8">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class=" sm:rounded-lg">
                     <div class="grid md:grid-cols-3 gap-6">
@@ -270,7 +259,7 @@
                 //We add event when changing switch light mode
                 document.querySelector('#switchLight').addEventListener('click', (e) =>{
                     let opt;
-                    if( JSON.parse(localStorage.getItem('darkMode')) ){
+                    if(!JSON.parse(localStorage.getItem('darkMode'))){
                         yColor = '#E5E7EB'
                         titleColor = '#E5E7EB'
                     }
@@ -290,6 +279,7 @@
                         }
                     }
                     chart.updateOptions(opt, false, false)
+                    activeSessionChart.updateOptions(opt, true, true, true)
                 })
             </script>
             @endnotEmpty
