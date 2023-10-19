@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Measurement;
 use App\Models\Session;
+use Illuminate\Database\Eloquent\Model as SModel;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -11,6 +12,9 @@ class ActiveSession extends Component
 {
     public bool $activeSession = false;
 
+    public string $sessionBoardName;
+
+    /** @mixin Session */
     public Session $session;
 
     /** @var array<string> */
@@ -18,23 +22,20 @@ class ActiveSession extends Component
         'refresh' => '$refresh',
     ];
 
-    public function test(): void
-    {
-        $this->activeSession = ! $this->activeSession;
-        $this->emitSelf('refresh');
-    }
-
     /*
-     * @var App\Models\Session $lastSession
+     * @var SModel $lastSession
      */
     public function lastSession(): void
     {
         //Get last session from database and compare with now time
-        $lastSession = Session::orderBy('id', 'desc')->limit(1)->first();
+        $lastSession = Session::with('board')->orderBy('id', 'desc')->limit(1)->first();
         if (($lastSession ?? false) and ! $this->activeSession) {
-            if (($lastSession->created_at ?? false) and $lastSession->created_at->diffInSeconds(now()) < 10) {
+            if (($lastSession->created_at ?? false) and $lastSession->created_at->diffInSeconds(now()) < 30) {
                 $this->activeSession = true;
                 $this->session = $lastSession;
+                if ($this->session->board ?? false) {
+                    $this->sessionBoardName = $this->session->board->name;
+                }
                 $this->dispatchBrowserEvent('startActiveSessionUpdater');
             }
         }
@@ -49,11 +50,15 @@ class ActiveSession extends Component
                 ->get();
             if ($measurements->count() > 0) {
                 $msmnCrDate = $measurements->last()->created_at ?? false;
-                if ($msmnCrDate and $msmnCrDate->diffInSeconds(now()) < 50) {
+                //The RPI sends data every 10 seconds, we'll wait a greater time to declare no data is received
+                if ($msmnCrDate and $msmnCrDate->diffInSeconds(now()) < 15) {
                     $dataToSend = $measurements->map(function ($m) {
                         return (float) $m->temperature;
                     })->toArray();
                     $this->dispatchBrowserEvent('getSessionMeasurements', $dataToSend);
+                } else {
+                    $this->activeSession = false;
+                    $this->dispatchBrowserEvent('stopActiveSessionUpdater');
                 }
             }
         }
