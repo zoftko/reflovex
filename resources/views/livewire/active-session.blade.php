@@ -18,12 +18,12 @@
     <div wire:ignore.self id="activeSessionDom" class="hidden bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg bg-[#01273e] lightBox shadow transition-all duration-150 transform hover:scale-[1.02] cursor-pointer dark:shadow-[0_0_5px_1px_rgba(255,255,255,0.3)]">
         <div class="grid grid-cols-3 mt-3">
             <div> </div>
-            <div>
+            <div class="flex justify-center">
                 @if($activeSession)
                     <span class="bg-green-600 text-white p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(0,255,137,0.5)]">LIVE</span>
-                    <span class="bg-gray-700 text-gray-500 p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(79,83,81,0.5)] ml-3">FINISHED</span>
+                    <span class="bg-gray-300 dark:bg-gray-700 text-white dark:text-gray-500 p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(79,83,81,0.5)] ml-3">FINISHED</span>
                 @else
-                    <span class="bg-gray-700 text-gray-500 p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(79,83,81,0.5)]">LIVE</span>
+                    <span class="bg-gray-300 dark:bg-gray-700 text-white dark:text-gray-500 p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(79,83,81,0.5)]">LIVE</span>
                     <span class="bg-red-600 text-white p-[5px] rounded-md shadow-[0_0_5px_1px_rgba(255,98,7,0.5)] ml-3">FINISHED</span>
                 @endif
             </div>
@@ -36,7 +36,8 @@
                 @endif
             </div>
         </div>
-        <div wire:ignore id="activeSessionChart" class="h-[250] mx-3 mt-3"></divwire:ignore>
+        <p class="h4 mt-3 text-center text-white"> Active session on {{$sessionBoardName}}</p>
+        <div wire:ignore id="activeSessionChart" class="h-[250] mx-3 mt-3"></div>
     </div>
 
     <script type="text/javascript">
@@ -135,14 +136,6 @@
             xaxis: {
                 type: 'numeric',
                 tickAmount: 10
-            },
-            title: {
-                text: "Active session",
-                align: 'left',
-                style: {
-                    fontSize: "16px",
-                    color: titleColor
-                }
             },
             fill: {
                 type: 'gradient',

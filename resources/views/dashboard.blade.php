@@ -41,6 +41,19 @@
         .afterLongSession:after{background-color: #3af81f !important;}
         .afterMostSessions:after{background-color: #00a2e6 !important;}
 
+        .apexcharts-title-text{
+            fill: black;
+        }
+        .dark .apexcharts-title-text{
+            fill: white;
+        }
+        .apexcharts-yaxis-texts-g text, .apexcharts-xaxis-texts-g text{
+            fill: black;
+        }
+        .dark .apexcharts-yaxis-texts-g text, .dark .apexcharts-xaxis-texts-g text{
+            fill: white;
+        }
+
     </style>
 
     <div class="py-12 mx-4">
@@ -94,7 +107,7 @@
         </div>
 
         {{-- Last session hart and statistics --}}
-        <div class="max-w-8xl mx-auto shadow mt-8">
+        <div class="max-w-8xl mx-auto mt-8 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class=" sm:rounded-lg">
                     <div class="grid md:grid-cols-3 gap-6">
