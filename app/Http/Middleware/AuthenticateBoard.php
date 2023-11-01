@@ -41,6 +41,11 @@ class AuthenticateBoard
         }
         app()->instance(Board::class, $board);
 
+        $board->update([
+            'ip' => $request->ip(),
+            'last_seen' => now()
+        ]);
+
         return $next($request);
     }
 }
