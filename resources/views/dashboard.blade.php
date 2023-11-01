@@ -62,45 +62,7 @@
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 mb-3">
             <div class="grid md:grid-cols-2 gap-6 sm:rounded-lg">
                 {{-- Boards --}}
-                <div class="grid sm:grid-cols-2 gap-6 sm:rounded-lg">
-                    @forelse($recentBoards as $b)
-                        <div class="
-                             min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
-                             shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] dark:text-white boardBox
-                             transition-all duration-150 transform hover:scale-105 cursor-pointer
-                             bg-white dark:bg-gray-800
-                             "
-                        >
-                                <header class="grid grid-cols-6 items-center">
-                                    <p class="col-span-4 text-xl">{{$b['name']}}</p>
-                                    <div class="col-span-2 flex justify-end align-middle text-white">
-                                        <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-green-600">Active</span>
-                                    </div>
-                                </header>
-                                <hr class="mt-2">
-                                <p class="mt-3 text-sm">{{$b['uuid']}}</p>
-                                <p class="mb-2 text-sm">IP: {{$b['ip']}}</p>
-                        </div>
-                    @empty
-                        <div class="
-                         min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
-                         shadow-[0_0_5px_1px_rgba(255,255,255,0.3)] dark:text-white boardBox
-                         transition-all duration-150 transform hover:scale-105 cursor-pointer
-                         bg-white dark:bg-gray-800
-                         "
-                        >
-                            <header class="grid grid-cols-6 items-center">
-                                <p class="col-span-4 text-xl">NO BOARDS</p>
-                                <div class="col-span-2 flex justify-end align-middle text-white">
-                                    <span class="text-sm h-fit py-[2px] px-[7px] rounded-lg bg-red-500">Inactive</span>
-                                </div>
-                            </header>
-                            <hr class="mt-2">
-                            <p class="mt-3 text-sm">{{$b->uuid}}</p>
-                            <p class="mb-2 text-sm">IP: {{$b->ip}}</p>
-                        </div>
-                    @endforelse
-                </div>
+                @livewire("recent-boards")
                 {{-- Current session --}}
                 @livewire("active-session")
             </div>
