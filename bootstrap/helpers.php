@@ -5,6 +5,7 @@
  * rc at the beginning of the function names means reflow command
  */
 
+use App\Models\Board;
 use App\Models\Measurement;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -21,7 +22,7 @@ if (! function_exists('rcAddMeasurement')) {
 }
 
 if (! function_exists('rcSaveMeasurements')) {
-    function rcSaveMeasurements(Collection &$measurements, int $sleepTime, ProgressBar &$progress): void
+    function rcSaveMeasurements(&$board, string $ip, Collection &$measurements, int $sleepTime, ProgressBar &$progress): void
     {
         if ($measurements->count() == 10) {
             $measurements->map(function ($measurement) {
@@ -29,6 +30,11 @@ if (! function_exists('rcSaveMeasurements')) {
             });
             $measurements = collect();
             $progress->advance(10);
+
+            $board->update([
+                'ip' => $ip,
+                'last_seen' => now()
+            ]);
             sleep($sleepTime);
         }
     }

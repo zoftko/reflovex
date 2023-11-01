@@ -102,7 +102,7 @@
                     @endforelse
                 </div>
                 {{-- Current session --}}
-                @livewire('active-session')
+                @livewire("active-session")
             </div>
         </div>
 
