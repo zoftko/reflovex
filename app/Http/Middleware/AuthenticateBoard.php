@@ -43,7 +43,7 @@ class AuthenticateBoard
 
         $board->update([
             'ip' => $request->ip(),
-            'last_seen' => now()
+            'last_seen' => now(),
         ]);
 
         return $next($request);

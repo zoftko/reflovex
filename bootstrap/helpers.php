@@ -5,7 +5,6 @@
  * rc at the beginning of the function names means reflow command
  */
 
-use App\Models\Board;
 use App\Models\Measurement;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -33,7 +32,7 @@ if (! function_exists('rcSaveMeasurements')) {
 
             $board->update([
                 'ip' => $ip,
-                'last_seen' => now()
+                'last_seen' => now(),
             ]);
             sleep($sleepTime);
         }

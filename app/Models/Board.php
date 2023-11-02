@@ -38,8 +38,8 @@ class Board extends Model
     use HasFactory;
 
     protected $fillable = [
-      'ip',
-      'last_seen'
+        'ip',
+        'last_seen',
     ];
 
     public function setUuidAttribute(string $value): void

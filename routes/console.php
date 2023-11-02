@@ -4,7 +4,6 @@ use App\Models\Board;
 use App\Models\Session;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +45,7 @@ Artisan::command('reflow {soakTemperature} {soakTime} {reflowPeakTemp} {sleepTim
     ]);
     $board->update([
         'ip' => $ip,
-        'last_seen' => now()
+        'last_seen' => now(),
     ]);
 
     $temp = 20;

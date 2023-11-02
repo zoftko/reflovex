@@ -1,4 +1,5 @@
 <div class="grid sm:grid-cols-2 gap-6 sm:rounded-lg">
+    <div wire:poll="updateRecentBoards" class="hidden"></div>
     @forelse($recentBoards as $b)
         <div class="
                              min-h-[100px] bg-center bg-cover bg-no-repeat rounded-lg p-2
