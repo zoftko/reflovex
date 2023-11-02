@@ -8,24 +8,29 @@ use App\Models\Profile;
 use App\Models\Session;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Illuminate\View\View;
+use Livewire\Component;
 
 class SummaryBoxes extends Component
 {
     public int $boardsCount;
+
     public int $sessionsCount;
+
     public int $profilesCount;
+
     public Collection $statistics;
 
-    public function updateStatistics(): void{
+    public function updateStatistics(): void
+    {
         $this->statistics = $this->generalStatistics();
         $this->boardsCount = Board::count();
         $this->sessionsCount = Session::count();
         $this->profilesCount = Profile::count();
     }
 
-    private function generalStatistics(): Collection{
+    private function generalStatistics(): Collection
+    {
         $statistics = collect();
 
         //Max temperature registered
@@ -70,6 +75,7 @@ class SummaryBoxes extends Component
     public function render(): view
     {
         $this->updateStatistics();
+
         return view('livewire.summary-boxes');
     }
 }

@@ -7,9 +7,12 @@ use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
-/** @property-read Collection<array> $recentBoards*/
+/** @template TRecentBoard = array{active: bool, name: mixed, uuid: mixed, ip: mixed, last_seen: mixed} */
 class RecentBoards extends Component
 {
+    /**
+     * @property Collection<int, TRecentBoard> $recentBoards
+     */
     public Collection $recentBoards;
 
     public function updateRecentBoards(): void

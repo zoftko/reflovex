@@ -60,7 +60,7 @@
 
         {{-- Boards and and current active session --}}
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 mb-3">
-            <div class="grid md:grid-cols-2 gap-6 sm:rounded-lg">
+            <div class="grid md:grid-cols-2 gap-6 sm:rounded-lg items-center">
                 {{-- Boards --}}
                 @livewire("recent-boards")
                 {{-- Current session --}}
