@@ -37,6 +37,11 @@ class Board extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'ip',
+        'last_seen',
+    ];
+
     public function setUuidAttribute(string $value): void
     {
         $this->attributes['uuid'] = strtoupper($value);
