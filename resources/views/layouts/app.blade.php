@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     </head>
     <body class="font-sans antialiased" x-data="{ darkMode: false }" x-init="
     if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -43,5 +44,6 @@
             <x-preloader></x-preloader>
         </div>
     </div>
+    @livewireScripts
     </body>
 </html>
