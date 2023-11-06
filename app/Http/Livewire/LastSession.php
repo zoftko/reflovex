@@ -16,12 +16,12 @@ class LastSession extends Component
     public string $sessionTime;
 
     /**
-     * @var Collection|array<empty>|null
+     * @var Collection<int, int>|array<empty>|null
      */
     public $xAxis;
 
     /**
-     * @var Collection|array<empty>|null
+     * @var Collection<int, int>|array<empty>|null
      */
     public $yAxis;
 
