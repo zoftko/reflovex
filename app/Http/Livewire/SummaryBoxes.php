@@ -19,6 +19,7 @@ class SummaryBoxes extends Component
 
     public int $profilesCount;
 
+    /** @var Collection<string, string> */
     public Collection $statistics;
 
     public function updateStatistics(): void
@@ -29,6 +30,7 @@ class SummaryBoxes extends Component
         $this->profilesCount = Profile::count();
     }
 
+    /** @return Collection<string, string> */
     private function generalStatistics(): Collection
     {
         $statistics = collect();

@@ -7,18 +7,17 @@ use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
-/** @template TRecentBoard = array{active: bool, name: mixed, uuid: mixed, ip: mixed, last_seen: mixed} */
 class RecentBoards extends Component
 {
     /**
-     * @property Collection<int, TRecentBoard> $recentBoards
+     * @var Collection<(int|string), mixed>
      */
     public Collection $recentBoards;
 
     public function updateRecentBoards(): void
     {
         $boards = Board::orderBy('last_seen', 'desc')->limit(4)->get();
-        $this->recentBoards = $boards->map(function ($b) {
+        $recentBoards = collect($boards->map(function ($b) {
             $active = true;
             $last_seen = $b->last_seen ?? false;
             if ($last_seen and now()->diffInSeconds($last_seen) > 15) {
@@ -32,7 +31,9 @@ class RecentBoards extends Component
                 'ip' => $b->ip,
                 'last_seen' => $b->last_seen,
             ];
-        });
+        }));
+
+        $this->recentBoards = $recentBoards;
     }
 
     public function mount(): void
