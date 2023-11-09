@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Boards;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 
 Route::get('/dashboard', [Dashboard::class, 'dashboard'])
     ->name('dashboard')
+    ->middleware(['auth', 'verified']);
+
+Route::get('/boards', [Boards::class, 'boards'])
+    ->name('boards')
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
