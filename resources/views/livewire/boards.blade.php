@@ -25,6 +25,9 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        #swal2-html-container{
+            color: white;
+        }
     </style>
     <div class="flex justify-center items-center">
         <input wire:model="search" class="w-3/4 bg-gray-100 dark:bg-gray-900 rounded-3xl dark:text-white" type="text" placeholder="Filter by Board name, UUID">
@@ -47,12 +50,12 @@
                 <tr>
                     <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->name}}</td>
                     <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->uuid}}</td>
-                    <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->last_seen}}</td>
+                    <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->last_seen ?? '---:---'}}</td>
                     <td class="w-1/4 justify-end border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2" align="end">
                         <svg wire:click="setEditData('{{$b->name}}', {{$b->id}})" class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff5500" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>
-                        <svg class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" class="w-6 h-6">
+                        <svg onclick="deleteBoard({{$b->id}})" class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                         </svg>
                     </td>
@@ -91,11 +94,28 @@
         </svg>
         <input id="editNameInput" wire:model="editName" class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white mr-2 w-8/12" type="text" placeholder="Board name"/>
     </div>
-    <script type="text/javascript">
+    <script type="text/javascript" wire:ignore>
         window.addEventListener('scrollToEditSection', (e) => {
             console.log('Edit board data on '+e.detail.name)
             document.getElementById('editTitle').scrollIntoView({behavior: 'smooth'})
             document.getElementById('editNameInput').focus()
         })
+
+        function deleteBoard(id){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete board"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('deleteBoard', id)
+                    console.log('lo hice')
+                }
+            });
+        }
     </script>
 </div>

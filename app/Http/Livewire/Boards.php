@@ -15,6 +15,10 @@ class Boards extends Component
     public string $editName;
     public int $editId;
 
+    protected $listeners = [
+        'deleteBoard'
+    ];
+
     public function mount(): void
     {
         $this->search = '';
@@ -79,6 +83,13 @@ class Boards extends Component
         if($board->save()){
             $this->dispatchBrowserEvent('serverMessage', ['icon' => 'success', 'message' => 'Board data updated successfully']);
             $this->editName = '';
+        }
+    }
+
+    public function deleteBoard(int $id): void
+    {
+        if(Board::find($id)->delete()){
+            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'success', 'message' => 'Board removed successfully']);
         }
     }
     public function render(): View
