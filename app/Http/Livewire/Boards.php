@@ -12,12 +12,15 @@ class Boards extends Component
     public string $search;
     public string $addBName;
     public string $addBUuid;
+    public string $editName;
+    public int $editId;
 
     public function mount(): void
     {
         $this->search = '';
         $this->addBUuid = '';
         $this->addBName = '';
+        $this->editId = 0;
     }
 
     public function addBoard(): void
@@ -44,6 +47,38 @@ class Boards extends Component
         $board->uuid = $this->addBUuid;
         if( $board->save() ){
             $this->dispatchBrowserEvent('serverMessage', ['icon' => 'success', 'message' => 'Board added successfully']);
+        }
+    }
+
+    public function setEditData(string $name, int $id): void
+    {
+        $this->editName = $name;
+        $this->editId = $id;
+        $this->dispatchBrowserEvent('scrollToEditSection', ['name' => $name]);
+    }
+
+    public function updateBoardData(): void
+    {
+        if(empty($this->editName) or ($this->editId == 0)){
+            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'error', 'message' => 'Name empty or not board selected']);
+            return;
+        }
+
+        $validator = Validator::make([
+            'name' => $this->editName,
+        ], [
+            'name' => 'string|max:255',
+        ]);
+        if($validator->fails()){
+            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'error', 'message' => 'Name too long']);
+            return;
+        }
+
+        $board = Board::find($this->editId);
+        $board->name = $this->editName;
+        if($board->save()){
+            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'success', 'message' => 'Board data updated successfully']);
+            $this->editName = '';
         }
     }
     public function render(): View

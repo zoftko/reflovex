@@ -49,7 +49,7 @@
                     <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->uuid}}</td>
                     <td class="w-1/4 align-middle border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2">{{$b->last_seen}}</td>
                     <td class="w-1/4 justify-end border-solid border-[1px] border-gray-700 dark:border-gray-50 p-2" align="end">
-                        <svg class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff5500" class="w-6 h-6">
+                        <svg wire:click="setEditData('{{$b->name}}', {{$b->id}})" class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff5500" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>
                         <svg class="inline-block w-[30px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" class="w-6 h-6">
@@ -77,13 +77,25 @@
         <input wire:model="addBName" class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white mr-2 w-1/2" type="text" placeholder="Board name"/>
         <input wire:model="addBUuid" class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white" type="text" placeholder="UUID: FFAAFFAAFFAA"/>
     </div>
-    <p class="text-center dark:text-white text-xl mb-3">Edit board data</p>
+    <div class="flex justify-center">
+        <p id="editTitle" class="text-center dark:text-white text-xl mb-3">Edit board data</p>
+        <svg class="block ml-[5px] relative top-[-5px] h-5 w-5 stroke-current h-9 w-9 animate-spin text-gray-400" wire:loading.block wire:target="updateBoardData" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+    </div>
     <p class="text-center dark:text-white text-sm mb-3">Click on edit button on board using table above</p>
     <div class="flex items-center justify-center">
-        <svg class="w-[50px] mr-3 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2f7aeb" class="w-6 h-6">
+        <svg wire:click="updateBoardData" class="w-[50px] mr-3 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2f7aeb" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
         </svg>
-        <input class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white mr-2 w-1/2" type="text" placeholder="Board name"/>
-        <input class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white" type="text" placeholder="UUID: FFAAFFAAFFAA"/>
+        <input id="editNameInput" wire:model="editName" class="bg-gray-100 dark:bg-gray-900 rounded-md dark:text-white mr-2 w-8/12" type="text" placeholder="Board name"/>
     </div>
+    <script type="text/javascript">
+        window.addEventListener('scrollToEditSection', (e) => {
+            console.log('Edit board data on '+e.detail.name)
+            document.getElementById('editTitle').scrollIntoView({behavior: 'smooth'})
+            document.getElementById('editNameInput').focus()
+        })
+    </script>
 </div>
