@@ -39,10 +39,10 @@ class Boards extends Component
             'uuid' => $this->addBUuid
         ], [
             'name' => 'string|max:255',
-            'uuid' => 'unique:boards,uuid|string|max:12'
+            'uuid' => 'unique:boards,uuid|string|min:12|max:12'
         ]);
         if($validator->fails()){
-            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'error', 'message' => 'UUID too long or registered (remember UUID size is 12)']);
+            $this->dispatchBrowserEvent('serverMessage', ['icon' => 'error', 'message' => $validator->errors()->first()]);
             return;
         }
 
@@ -50,6 +50,8 @@ class Boards extends Component
         $board->name = $this->addBName;
         $board->uuid = $this->addBUuid;
         if( $board->save() ){
+            $this->addBName = '';
+            $this->addBUuid = '';
             $this->dispatchBrowserEvent('serverMessage', ['icon' => 'success', 'message' => 'Board added successfully']);
         }
     }
