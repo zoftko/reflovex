@@ -15,6 +15,18 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
+    <style>
+        .swal2-modal{
+            background-color: #36404d;
+        }
+        .swal2-title{
+            color: white;
+        }
+        button.swal2-confirm{
+            border: 1px solid #4c6a8f !important;
+            background-color: #15253d !important;
+        }
+    </style>
     <body class="font-sans antialiased" x-data="{ darkMode: false }" x-init="
     if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       localStorage.setItem('darkMode', JSON.stringify(true));
@@ -45,5 +57,14 @@
         </div>
     </div>
     @livewireScripts
+    <script type="text/javascript">
+        window.addEventListener('serverMessage', (e) => {
+            console.log(e.detail)
+            Swal.fire({
+                title: e.detail.message,
+                icon: e.detail.icon
+            })
+        })
+    </script>
     </body>
 </html>
