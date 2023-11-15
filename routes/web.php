@@ -28,6 +28,10 @@ Route::get('/boards', [Boards::class, 'boards'])
     ->name('boards')
     ->middleware(['auth', 'verified']);
 
+Route::get('/board/{id}/sessions', [Boards::class, 'sessions'])
+    ->name('boardSessions')
+    ->middleware(['auth', 'verified']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
