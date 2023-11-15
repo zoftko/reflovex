@@ -73,6 +73,20 @@
 
             activeSessionUpdater = setInterval(updateActiveSessionChart, 1000)
             console.log('Active Session Updater Started')
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            }).fire({
+                icon: "info",
+                title: "Session has started on " + e.detail.name
+            });
         })
 
         //Event to receive session measurements and append to graph
@@ -90,6 +104,20 @@
             pollerLastSession.classList.remove('hidden')
             pollerSessionMeasurements.classList.add('hidden')
             yData = []
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            }).fire({
+                icon: "success",
+                title: "Session finished"
+            });
         })
 
         let activeSessionUpdater = null //Interval to update the active session chart

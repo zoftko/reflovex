@@ -19,7 +19,7 @@
         .swal2-modal{
             background-color: #36404d;
         }
-        .swal2-title{
+        .swal2-modal .swal2-title{
             color: white;
         }
         button.swal2-confirm{
