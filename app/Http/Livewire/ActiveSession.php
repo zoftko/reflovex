@@ -36,7 +36,7 @@ class ActiveSession extends Component
                 if ($this->session->board ?? false) {
                     $this->sessionBoardName = $this->session->board->name;
                 }
-                $this->dispatchBrowserEvent('startActiveSessionUpdater');
+                $this->dispatchBrowserEvent('startActiveSessionUpdater', ['name' => $lastSession->board->name]);
             }
         }
     }

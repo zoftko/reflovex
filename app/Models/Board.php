@@ -46,4 +46,9 @@ class Board extends Model
     {
         $this->attributes['uuid'] = strtoupper($value);
     }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
 }
