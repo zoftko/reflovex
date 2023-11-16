@@ -1,5 +1,5 @@
 <x-app-layout>
     <div class="py-12 mx-10">
-        Sessions {{$id}}
+        @livewire('board-sessions', ['id' => $id])
     </div>
 </x-app-layout>
